@@ -345,6 +345,36 @@ const COLORS = { teal:'#2dd4bf', amber:'#f5a623', red:'#ff4d5e', violet:'#a78bfa
 
 const protocols = [
 {
+  id:'pelea', group:'convivencia', color:'amber', cat:'Violencia entre pares', lvl:'Intervención inmediata',
+  title:'Pelea o agresión física puntual en el aula',
+  desc:'Episodio agudo de violencia física o verbal entre estudiantes, a diferencia del hostigamiento sostenido: exige intervenir ya para bajar la carga emocional y garantizar la seguridad, antes de pensar en sanciones.',
+  keywords:'pelea agresion fisica golpes discusion conflicto aula empujones trompadas',
+  hacer:[
+    'Intervenir de inmediato para bajar la carga emocional y frenar la agresión física o verbal, en lo posible acompañado por otro adulto.',
+    'Mantener a las y los estudiantes en espacios separados, con adultos disponibles y atentos durante todo el proceso.',
+    'Sostener una escucha empática y por separado con cada involucrado: cómo se siente, qué le ocurrió, qué necesita.',
+    'Si hay lesiones: dar aviso inmediato al servicio de emergencias o salita y contactar a la familia en simultáneo, priorizando siempre los primeros auxilios por sobre cualquier otra comunicación.',
+    'Elaborar un registro escrito (acta) que describa los hechos sin emitir juicios de valor.',
+    'Convocar a las familias por separado para informar lo sucedido y acordar una acción inmediata.'
+  ],
+  noHacer:[
+    'Intervenir en soledad pudiendo pedir apoyo de otro adulto.',
+    'Dejar a los estudiantes involucrados juntos y sin supervisión mientras se calman.',
+    'Minimizar el hecho como "cosas de chicos" ni sancionar de inmediato sin escuchar a ambas partes.',
+    'Reunir a ambas familias en la misma reunión.',
+    'Exponer la situación ante el resto del curso, en redes o en comentarios informales entre docentes.'
+  ],
+  pasos:[
+    'DURANTE: separar a los y las estudiantes en espacios distintos y bajar la carga emocional, en lo posible con otro adulto presente.',
+    'Si hay lesiones: aviso inmediato a emergencias/salud y a la familia en simultáneo, priorizando siempre los primeros auxilios.',
+    'Escuchar por separado a cada estudiante involucrado, con contención y sin juicios de valor.',
+    'Registrar lo sucedido en acta, describiendo los hechos de forma objetiva.',
+    'Convocar a las familias por separado para informar y acordar una acción.',
+    'DESPUÉS: trabajar con todo el grupo la recomposición de vínculos — el conflicto afecta al curso entero, no solo a quienes participaron — y revisar los Acuerdos Escolares de Convivencia.',
+    'Definir sanciones solo si son educativas, graduales y proporcionales a la transgresión, nunca como primera respuesta ni con lógica punitiva.'
+  ]
+},
+{
   id:'bullying', group:'convivencia', color:'teal', cat:'Violencia entre pares', lvl:'Leve a grave',
   title:'Hostigamiento sostenido / bullying',
   desc:'Agresión sistemática y sostenida en el tiempo, con espectadores. No es un conflicto puntual entre pares.',
@@ -658,10 +688,9 @@ const casos = [
     {
       q:'Al tratarse de una sospecha, ¿cuáles son los pasos secuenciales que deben seguir los adultos a cargo del taller?',
       r:[
-        'Avisar de inmediato a la Policía Provincial — es obligatorio siempre, también tratándose solo de sospecha.',
-        'Convocar en paralelo a la familia o referente adulto del estudiante señalado.',
-        'Citarlo a un espacio privado, siempre acompañado por al menos dos adultos que puedan contener sin emitir juicios de valor.',
-        'No revisar la caja de herramientas por cuenta propia: se solicita la intervención de las fuerzas de seguridad para la verificación.',
+        'No son pasos uno-detrás-del-otro, sino acciones simultáneas: mientras un adulto de referencia (el MEP, un preceptor) permanece con el estudiante y lo aparta del grupo con calma, sin confrontarlo, otro adulto informa a dirección y a la familia, y evalúa el aviso a la Policía Provincial según la gravedad.',
+        'Garantizar siempre al menos dos adultos presentes durante toda la contención — ninguno actúa en soledad.',
+        'No revisar la caja de herramientas por cuenta propia: la verificación corresponde a las fuerzas de seguridad.',
         'Confeccionar acta y elevar lo actuado al Equipo de Gestión y Supervisión Pedagógica.'
       ]
     },
