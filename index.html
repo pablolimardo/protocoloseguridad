@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<title>Protocolo // Escuela Industrial N°9</title>
+<meta name="description" content="Guía rápida de actuación docente ante situaciones complejas de convivencia y cuidado escolar.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0f1a;
+  --panel:#111a2b;
+  --panel2:#0e1523;
+  --line:#233149;
+  --text:#e7ecf6;
+  --muted:#8b96ac;
+  --teal:#2dd4bf;
+  --amber:#f5a623;
+  --red:#ff4d5e;
+  --violet:#a78bfa;
+  --blue:#5b9dff;
+  --green:#4ade80;
+  --radius:14px;
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  background:
+    radial-gradient(ellipse 900px 500px at 15% -10%, rgba(45,212,191,0.08), transparent 60%),
+    radial-gradient(ellipse 700px 500px at 100% 0%, rgba(167,139,250,0.07), transparent 60%),
+    var(--bg);
+  color:var(--text);
+  font-family:'Inter',system-ui,sans-serif;
+  min-height:100vh;
+  padding-bottom:60px;
+}
+.mono{font-family:'JetBrains Mono',monospace;}
+.disp{font-family:'Space Grotesk',sans-serif;}
+
+/* Status bar signature element */
+.statusbar{
+  display:flex; align-items:center; gap:10px;
+  background:#050810; border-bottom:1px solid var(--line);
+  padding:7px 16px; font-size:11px; letter-spacing:.06em;
+  color:var(--muted); text-transform:uppercase;
+  position:sticky; top:0; z-index:50; font-family:'JetBrains Mono',monospace;
+  overflow-x:auto; white-space:nowrap;
+}
+.statusbar .dot{width:7px;height:7px;border-radius:50%;background:var(--green); box-shadow:0 0 8px var(--green); flex:none;}
+.statusbar .sep{color:var(--line);}
+.statusbar .clock{margin-left:auto; color:var(--text); flex:none;}
+
+header.hero{
+  max-width:1000px; margin:0 auto; padding:36px 20px 20px;
+}
+.eyebrow{
+  font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:.14em;
+  color:var(--teal); text-transform:uppercase; margin-bottom:12px; display:flex; gap:10px; align-items:center;
+}
+.eyebrow::before{content:"";width:22px;height:1px;background:var(--teal);display:inline-block;}
+h1{
+  font-family:'Space Grotesk',sans-serif; font-weight:700;
+  font-size:clamp(28px,5vw,44px); line-height:1.08; letter-spacing:-0.01em;
+  margin-bottom:14px;
+}
+h1 span{color:var(--teal);}
+.sub{color:var(--muted); font-size:15px; max-width:60ch; line-height:1.6; margin-bottom:22px;}
+
+.emergencybar{
+  max-width:1000px; margin:0 auto 26px; padding:0 20px;
+}
+.emergencybtn{
+  display:flex; align-items:center; gap:14px;
+  background:linear-gradient(135deg,#3a0b12,#1a0508);
+  border:1px solid rgba(255,77,94,0.4);
+  border-radius:var(--radius);
+  padding:16px 18px;
+  cursor:pointer; width:100%; text-align:left;
+}
+.emergencybtn .ico{
+  width:40px;height:40px;flex:none;border-radius:10px;
+  background:var(--red); display:flex; align-items:center; justify-content:center;
+  font-size:20px; box-shadow:0 0 22px rgba(255,77,94,0.45);
+}
+.emergencybtn strong{display:block; font-family:'Space Grotesk',sans-serif; font-size:15px; color:#ffd7db;}
+.emergencybtn span{display:block; font-size:12.5px; color:#c98a90; margin-top:2px;}
+
+.searchwrap{max-width:1000px; margin:0 auto 22px; padding:0 20px;}
+.searchbox{
+  display:flex; align-items:center; gap:10px;
+  background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
+  padding:12px 16px;
+}
+.searchbox input{
+  background:none; border:none; outline:none; color:var(--text);
+  font-family:'Inter'; font-size:14.5px; width:100%;
+}
+.searchbox input::placeholder{color:var(--muted);}
+.searchbox .k{color:var(--muted); font-size:11px; font-family:'JetBrains Mono';}
+
+main{max-width:1000px; margin:0 auto; padding:0 20px;}
+
+.sectiontitle{
+  font-family:'JetBrains Mono',monospace; font-size:11.5px; letter-spacing:.12em;
+  color:var(--muted); text-transform:uppercase; margin:26px 0 12px; padding-left:2px;
+}
+
+.grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(270px,1fr)); gap:12px;}
+
+.card{
+  background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
+  padding:18px; cursor:pointer; position:relative; overflow:hidden;
+  transition:transform .15s ease, border-color .15s ease;
+  display:flex; flex-direction:column; gap:10px; min-height:128px;
+}
+.card:hover{transform:translateY(-2px); border-color:var(--accent,#2dd4bf);}
+.card:focus-visible{outline:2px solid var(--teal); outline-offset:2px;}
+.card .barcode{
+  position:absolute; left:0; top:0; bottom:0; width:4px; background:var(--accent,#2dd4bf);
+}
+.card .row1{display:flex; justify-content:space-between; align-items:flex-start; gap:8px;}
+.card .catlabel{
+  font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.08em;
+  color:var(--accent,#2dd4bf); text-transform:uppercase;
+}
+.card .lvl{
+  font-family:'JetBrains Mono',monospace; font-size:9.5px; padding:3px 7px; border-radius:5px;
+  border:1px solid var(--line); color:var(--muted); flex:none; white-space:nowrap;
+}
+.card h3{font-family:'Space Grotesk'; font-size:16.5px; font-weight:600; line-height:1.25;}
+.card p{color:var(--muted); font-size:12.5px; line-height:1.5;}
+.card .go{margin-top:auto; font-size:11.5px; color:var(--muted); font-family:'JetBrains Mono'; display:flex; align-items:center; gap:6px;}
+
+/* Detail overlay */
+.overlay{
+  position:fixed; inset:0; background:rgba(4,6,12,0.75); backdrop-filter:blur(3px);
+  display:none; z-index:100; overflow-y:auto; padding:20px 0 60px;
+}
+.overlay.active{display:block;}
+.detail{
+  max-width:820px; margin:0 auto; background:var(--panel2); border:1px solid var(--line);
+  border-radius:18px; overflow:hidden; animation:rise .22s ease;
+}
+@keyframes rise{from{opacity:0; transform:translateY(14px)} to{opacity:1; transform:translateY(0)}}
+.detail-head{
+  padding:24px 26px 20px; border-bottom:1px solid var(--line); position:relative;
+  background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+}
+.detail-head .barcode{position:absolute; left:0; top:0; bottom:0; width:5px; background:var(--accent,#2dd4bf);}
+.closebtn{
+  position:absolute; top:16px; right:16px; width:34px; height:34px; border-radius:9px;
+  background:var(--panel); border:1px solid var(--line); color:var(--text); font-size:16px;
+  cursor:pointer; display:flex; align-items:center; justify-content:center;
+}
+.detail-head .catlabel{font-family:'JetBrains Mono'; font-size:11px; letter-spacing:.1em; color:var(--accent,#2dd4bf); text-transform:uppercase; margin-bottom:8px;}
+.detail-head h2{font-family:'Space Grotesk'; font-size:24px; font-weight:700; margin-bottom:8px; padding-right:40px;}
+.detail-head .desc{color:var(--muted); font-size:14px; line-height:1.6; max-width:60ch;}
+
+.detail-body{padding:22px 26px 30px;}
+.block{margin-bottom:22px;}
+.block h4{
+  font-family:'JetBrains Mono'; font-size:11.5px; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--text); margin-bottom:12px; display:flex; align-items:center; gap:8px;
+}
+.block h4::before{content:""; width:16px; height:2px; background:var(--accent,#2dd4bf); display:inline-block;}
+
+.dodont{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
+@media(max-width:640px){.dodont{grid-template-columns:1fr;}}
+.dobox, .dontbox{border-radius:10px; padding:14px 15px; border:1px solid var(--line);}
+.dobox{background:rgba(74,222,128,0.06); border-color:rgba(74,222,128,0.25);}
+.dontbox{background:rgba(255,77,94,0.06); border-color:rgba(255,77,94,0.25);}
+.dobox .lbl{color:var(--green); font-size:11px; font-family:'JetBrains Mono'; margin-bottom:8px; letter-spacing:.06em;}
+.dontbox .lbl{color:var(--red); font-size:11px; font-family:'JetBrains Mono'; margin-bottom:8px; letter-spacing:.06em;}
+.dobox ul, .dontbox ul{list-style:none;}
+.dobox li, .dontbox li{font-size:13.3px; line-height:1.55; padding:4px 0 4px 16px; position:relative; color:var(--text);}
+.dobox li::before{content:"✓"; position:absolute; left:0; color:var(--green); font-size:12px;}
+.dontbox li::before{content:"✕"; position:absolute; left:0; color:var(--red); font-size:12px;}
+
+.steps{counter-reset:step; list-style:none;}
+.steps li{
+  counter-increment:step; position:relative; padding:10px 0 10px 40px; font-size:13.8px; line-height:1.6;
+  border-bottom:1px solid var(--line);
+}
+.steps li:last-child{border-bottom:none;}
+.steps li::before{
+  content:counter(step); position:absolute; left:0; top:9px; width:26px; height:26px; border-radius:7px;
+  background:var(--accent,#2dd4bf); color:#04141c; font-family:'JetBrains Mono'; font-weight:700; font-size:12px;
+  display:flex; align-items:center; justify-content:center;
+}
+.steps li strong{color:var(--text);}
+
+.phones{display:flex; flex-wrap:wrap; gap:8px;}
+.phone{
+  display:flex; align-items:center; gap:8px; background:var(--panel); border:1px solid var(--line);
+  border-radius:9px; padding:9px 13px; font-size:12.8px;
+}
+.phone .num{font-family:'JetBrains Mono'; color:var(--teal); font-weight:600;}
+
+.warnnote{
+  background:rgba(245,166,35,0.08); border:1px solid rgba(245,166,35,0.3); border-radius:10px;
+  padding:12px 14px; font-size:13px; line-height:1.55; color:#ffd9a0;
+}
+
+/* Contacts page */
+.contactgrid{display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:10px;}
+.contactcard{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:14px 16px;}
+.contactcard .name{font-family:'Space Grotesk'; font-weight:600; font-size:14px; margin-bottom:4px;}
+.contactcard .desc{font-size:12px; color:var(--muted); margin-bottom:8px; line-height:1.5;}
+.contactcard .num{font-family:'JetBrains Mono'; color:var(--teal); font-size:14px; font-weight:600;}
+
+footer{max-width:1000px; margin:40px auto 0; padding:20px; color:var(--muted); font-size:11.5px; text-align:center; border-top:1px solid var(--line);}
+
+@media print{
+  .statusbar, .searchwrap, .emergencybar, .card, .sectiontitle, header.hero, footer{display:none;}
+}
+
+.tabnav{display:flex; gap:6px; max-width:1000px; margin:0 auto 4px; padding:0 20px; flex-wrap:wrap;}
+.tabbtn{
+  font-family:'JetBrains Mono'; font-size:11.5px; letter-spacing:.04em; text-transform:uppercase;
+  background:none; border:1px solid var(--line); color:var(--muted); padding:8px 13px; border-radius:9px; cursor:pointer;
+}
+.tabbtn.active{background:var(--panel); color:var(--text); border-color:var(--teal); color:var(--teal);}
+
+.acta-fields{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:14px;}
+.acta-fields label{display:block; font-size:11px; color:var(--muted); font-family:'JetBrains Mono'; margin-bottom:4px;}
+.acta-fields input, .acta-fields textarea{
+  width:100%; background:var(--panel); border:1px solid var(--line); border-radius:8px; color:var(--text);
+  padding:9px 11px; font-family:'Inter'; font-size:13.5px;
+}
+.acta-fields textarea{grid-column:1/-1; min-height:90px; resize:vertical;}
+.printbtn{
+  background:var(--teal); color:#04141c; border:none; border-radius:9px; padding:10px 18px;
+  font-family:'JetBrains Mono'; font-size:12.5px; font-weight:600; cursor:pointer; letter-spacing:.04em;
+}
+</style>
+</head>
+<body>
+
+<div class="statusbar">
+  <span class="dot"></span>
+  <span>SISTEMA DE PROTOCOLOS ESCOLARES</span>
+  <span class="sep">·</span>
+  <span>ESCUELA INDUSTRIAL N°9 "15 DE NOVIEMBRE" · EL CALAFATE, SANTA CRUZ</span>
+  <span class="sep">·</span>
+  <span>REF: RES. CPE 717/25</span>
+  <span class="clock" id="clock"></span>
+</div>
+
+<header class="hero">
+  <div class="eyebrow">Guía operativa docente</div>
+  <h1>Cuando la situación<br><span>lo exige</span>, actuá con protocolo.</h1>
+  <p class="sub">Consulta rápida de pasos a seguir ante situaciones complejas de convivencia, cuidado y protección de derechos en el aula. Basado en "Escuelas que acompañan en comunidad" (CPE Santa Cruz, Ac. 717/25). Para uso interno del equipo docente — no reemplaza la intervención del equipo directivo ni de los organismos competentes.</p>
+</header>
+
+<div class="emergencybar">
+  <button class="emergencybtn" onclick="openDetail('riesgo-vital')">
+    <span class="ico">⚠</span>
+    <span>
+      <strong>Riesgo de vida inminente — tocar acá primero</strong>
+      <span>Arma de fuego, intento de suicidio en curso, intoxicación grave. Acceso directo al protocolo de emergencia.</span>
+    </span>
+  </button>
+</div>
+
+<div class="tabnav">
+  <button class="tabbtn active" data-tab="protocolos" onclick="switchTab('protocolos')">Protocolos</button>
+  <button class="tabbtn" data-tab="casos" onclick="switchTab('casos')">Casos prácticos</button>
+  <button class="tabbtn" data-tab="contactos" onclick="switchTab('contactos')">Contactos y líneas</button>
+  <button class="tabbtn" data-tab="acta" onclick="switchTab('acta')">Acta volante</button>
+</div>
+
+<div class="searchwrap">
+  <div class="searchbox">
+    <span class="mono">⌕</span>
+    <input type="text" id="search" placeholder="Buscar: bullying, arma, autolesión, consumo, discriminación...">
+  </div>
+</div>
+
+<main>
+
+<section id="tab-protocolos">
+  <div class="sectiontitle">Convivencia y violencia entre pares</div>
+  <div class="grid" id="grid-convivencia"></div>
+
+  <div class="sectiontitle">Cuidado, identidad y protección de derechos</div>
+  <div class="grid" id="grid-derechos"></div>
+
+  <div class="sectiontitle">Salud mental y consumos</div>
+  <div class="grid" id="grid-salud"></div>
+
+  <div class="sectiontitle">Situaciones de riesgo grave</div>
+  <div class="grid" id="grid-riesgo"></div>
+</section>
+
+<section id="tab-casos" style="display:none">
+  <div class="warnnote" style="margin-bottom:16px;">Casos para trabajar en clase o en capacitación docente: cada uno trae un contexto, preguntas guía y una respuesta modelo desplegable, con base en la Guía Provincial.</div>
+  <div class="grid" id="grid-casos"></div>
+</section>
+
+<section id="tab-contactos" style="display:none">
+  <div class="sectiontitle">Líneas nacionales — gratuitas, 24hs</div>
+  <div class="contactgrid" id="contactos-nacionales"></div>
+  <div class="sectiontitle">El Calafate y Santa Cruz</div>
+  <div class="contactgrid" id="contactos-locales"></div>
+</section>
+
+<section id="tab-acta" style="display:none">
+  <div class="sectiontitle">Acta volante — borrador para completar e imprimir</div>
+  <div class="warnnote" style="margin-bottom:16px;">Este formulario genera un borrador para imprimir en el momento. El acta volante no debe conservarse en el legajo del estudiante ni en el libro de actas institucional: se eleva al equipo directivo en sobre cerrado dentro de las 24 hs.</div>
+  <div class="acta-fields">
+    <div><label>Fecha</label><input type="date" id="a-fecha"></div>
+    <div><label>Hora inicio / fin</label><input type="text" id="a-hora" placeholder="ej. 10:15 a 10:35"></div>
+    <div><label>Nombre y apellido del estudiante</label><input type="text" id="a-nombre"></div>
+    <div><label>DNI</label><input type="text" id="a-dni"></div>
+    <div><label>Curso</label><input type="text" id="a-curso" placeholder="ej. 3°2° ACPI"></div>
+    <div><label>Persona que redacta / cargo</label><input type="text" id="a-redactor"></div>
+    <div style="grid-column:1/-1"><label>Personas adultas presentes</label><input type="text" id="a-presentes"></div>
+    <div style="grid-column:1/-1"><label>Relato de los hechos (objetivo, sin juicios de valor)</label><textarea id="a-relato" placeholder="Describir de forma breve y objetiva lo observado o el relato espontáneo del NNyA. No se requieren pruebas concretas: la sospecha fundada alcanza para dar intervención."></textarea></div>
+    <div style="grid-column:1/-1"><label>Observaciones adicionales / familia notificada</label><textarea id="a-obs"></textarea></div>
+  </div>
+  <button class="printbtn" onclick="window.print()">Imprimir acta</button>
+</section>
+
+</main>
+
+<footer>
+  Herramienta de referencia rápida elaborada para uso docente interno. No sustituye la Guía Provincial completa ni el criterio del Equipo de Orientación Escolar, Equipo Directivo y Supervisión Pedagógica. Ante cualquier duda, comunicar siempre a dirección.
+</footer>
+
+<div class="overlay" id="overlay">
+  <div class="detail" id="detailContent"></div>
+</div>
+
+<script>
+// ---------- Clock ----------
+function tickClock(){
+  const d = new Date();
+  document.getElementById('clock').textContent = d.toLocaleDateString('es-AR',{day:'2-digit',month:'2-digit',year:'numeric'}) + ' ' + d.toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit'});
+}
+tickClock(); setInterval(tickClock,30000);
+
+// ---------- Data ----------
+const COLORS = { teal:'#2dd4bf', amber:'#f5a623', red:'#ff4d5e', violet:'#a78bfa', blue:'#5b9dff' };
+
+const protocols = [
+{
+  id:'bullying', group:'convivencia', color:'teal', cat:'Violencia entre pares', lvl:'Leve a grave',
+  title:'Hostigamiento sostenido / bullying',
+  desc:'Agresión sistemática y sostenida en el tiempo, con espectadores. No es un conflicto puntual entre pares.',
+  keywords:'bullying acoso hostigamiento entre pares burlas apodos',
+  hacer:[
+    'Intervenir de inmediato: separar y contener desde una mirada relacional (contexto, dinámica grupal, no solo "quién empezó").',
+    'Registrar por escrito en acta volante para poder hacer seguimiento.',
+    'Informar sin demora al equipo directivo y de orientación escolar. No actuar en soledad.',
+    'Trabajar con todo el grupo la recomposición de vínculos — el conflicto es colectivo, no individual.',
+    'Convocar a las familias por separado, con fines de acompañamiento.',
+    'Aplicar sanciones solo si son educativas, graduales y proporcionales, nunca como primera respuesta.'
+  ],
+  noHacer:[
+    'Minimizar los hechos ni delegarlos como "cosas de la edad".',
+    'Aplicar sanciones o exponer públicamente sin análisis previo.',
+    'Etiquetar a nadie como "agresor" o "víctima" frente al grupo.',
+    'Interrogar en público o pedir disculpas forzadas.',
+    'Esperar a que "se resuelva solo".'
+  ],
+  pasos:[
+    'Organizar de inmediato a los y las estudiantes en espacios separados y bajar la carga emocional.',
+    'Si hay lesiones, avisar a urgencias y a la familia en simultáneo, priorizando siempre los primeros auxilios.',
+    'Registrar lo sucedido en acta volante.',
+    'Trabajar con el grupo la recomposición de vínculos y revisar los Acuerdos Escolares de Convivencia.',
+    'Definir sanciones educativas si corresponde y dejar registro de acuerdos con las familias.',
+    'Articular con salud, niñez o justicia solo si la situación lo amerita.'
+  ]
+},
+{
+  id:'ciberbullying', group:'convivencia', color:'teal', cat:'Violencia entre pares', lvl:'Leve a grave',
+  title:'Ciberhostigamiento',
+  desc:'Hostigamiento sostenido a través de dispositivos y redes: perfiles falsos, viralización de contenido, mensajes dañinos.',
+  keywords:'ciberbullying redes sociales celular whatsapp instagram perfil falso',
+  hacer:[
+    'No minimizar el pedido de ayuda; observar interacciones en espacios informales (recreos, talleres).',
+    'Ofrecer escucha individualizada, sin exposición pública.',
+    'Dialogar por separado con quienes conocen la situación, incluidos quienes solo compartieron el contenido.',
+    'Registrar por escrito y avisar de inmediato a dirección y equipo de orientación.',
+    'Convocar a las familias para acordar estrategias conjuntas.'
+  ],
+  noHacer:[
+    'Exponer capturas o contenido frente al curso.',
+    'Etiquetar o estigmatizar a las y los estudiantes involucrados.',
+    'Difundir información del caso fuera de los canales institucionales.',
+    'Tratarlo como algo "ajeno a la escuela" por ocurrir fuera del horario escolar.'
+  ],
+  pasos:[
+    'Atender de inmediato el pedido de ayuda, sin exposición pública.',
+    'Entrevistar por separado a las y los involucrados y a quienes conocen la situación.',
+    'Registrar cada intervención por escrito.',
+    'Informar al equipo directivo y de orientación escolar el mismo día.',
+    'Convocar a las familias para acordar acompañamiento.',
+    'Trabajar en el grupo contenidos de respeto en redes, privacidad y uso responsable de imágenes.'
+  ]
+},
+{
+  id:'discriminacion', group:'convivencia', color:'blue', cat:'Diversidad e identidad', lvl:'Leve a grave',
+  title:'Discriminación por orientación sexual, identidad o expresión de género',
+  desc:'Incluye bromas, apodos o exclusión por identidad de género, orientación sexual o expresión de género — no requiere que sea "grave" para intervenir.',
+  keywords:'discriminacion genero identidad orientacion sexual diversidad LGBT nombre autopercibido',
+  hacer:[
+    'Intervenir siempre: no puede haber silencio pedagógico frente a chistes, bromas o apodos.',
+    'Respetar el nombre de pila autopercibido y el acceso a baños y educación física según la identidad autopercibida, sin exigir cambio de DNI.',
+    'Registrar por escrito de forma objetiva, sin etiquetas como "agresor/a".',
+    'Convocar a las familias por separado, garantizando protección y privacidad.',
+    'Si quien discrimina es un adulto de la institución: labrar acta y elevar a supervisión pedagógica.'
+  ],
+  noHacer:[
+    'Naturalizar bromas, sobrenombres o "cargadas" por orientación sexual o identidad de género.',
+    'Exigir el cambio de nombre en el DNI para respetar el nombre elegido.',
+    'Exponer o revictimizar al estudiante frente al grupo.',
+    'Aceptar que la familia rechace la identidad autopercibida sin dar aviso al área de infancia local — eso configura una vulneración de derechos.'
+  ],
+  pasos:[
+    'Detener de inmediato la situación discriminatoria y señalarla como inadecuada.',
+    'Proteger a la persona afectada evitando su exposición.',
+    'Abordar desde los Acuerdos Escolares de Convivencia y desarrollar propuestas de ESI sobre diversidad.',
+    'Convocar a las familias y confeccionar acta.',
+    'Si hay episodios de violencia asociados, seguir además el protocolo de violencia entre pares.'
+  ]
+},
+{
+  id:'violenciagenero', group:'convivencia', color:'violet', cat:'Violencia de género', lvl:'Grave',
+  title:'Violencia de género en el noviazgo adolescente',
+  desc:'Señales: aislamiento, control digital constante, baja autoestima, descenso del rendimiento, miedo a no responder rápido a la pareja.',
+  keywords:'violencia de genero noviazgo pareja control celular',
+  hacer:[
+    'Escuchar de forma atenta, sin presionar por detalles ni emitir juicios.',
+    'Explicar que no se puede prometer confidencialidad absoluta: hay obligación legal de proteger.',
+    'Registrar en acta volante respetando el relato espontáneo.',
+    'Informar a dirección y, siempre, al organismo local de protección de derechos de NNyA — aunque la familia minimice o se muestre reticente.',
+    'Evitar el contacto entre las partes si concurren a la misma institución, sin perjudicar el derecho a la educación de ninguna de las dos.'
+  ],
+  noHacer:[
+    'Confrontar o mediar directamente entre las partes.',
+    'Prometer confidencialidad absoluta.',
+    'Minimizar señales digitales de control (revisar el celular, exigir ubicación constante).',
+    'Exponer la situación públicamente o en redes.'
+  ],
+  pasos:[
+    'Brindar escucha activa en un espacio privado.',
+    'Si la persona es menor de 18: registrar en acta volante, informar a la familia y al organismo local de protección de derechos de NNyA.',
+    'Si es mayor de 18: informar sobre organismos para asesoramiento o denuncia (Comisaría de la Mujer, Fiscalía, OVD).',
+    'Ante riesgo inminente de vida: avisar de inmediato a la Policía Provincial.',
+    'Implementar adecuaciones pedagógicas para sostener la trayectoria educativa de ambas partes.'
+  ]
+},
+{
+  id:'armafuego', group:'riesgo', color:'red', cat:'Riesgo grave', lvl:'Urgente',
+  title:'Sospecha o presencia de arma de fuego',
+  desc:'Toda arma de fuego debe considerarse siempre cargada. Solo las fuerzas de seguridad pueden revisar o retirarla.',
+  keywords:'arma de fuego pistola bala amenaza',
+  hacer:[
+    'Avisar de inmediato a la Policía Provincial.',
+    'Convocar en paralelo a la familia o referente adulto.',
+    'Si hay sospecha: citar al estudiante a un espacio privado, siempre acompañado por al menos dos adultos, sin revisar sus pertenencias.',
+    'Si el arma está presente y visible: mantener la calma, mantener la atención en el vínculo (no en el arma), alejar discretamente a otros estudiantes.',
+    'Usar frases de contención: "estoy acá para acompañarte", "no estás solo/a, vamos a resolver esto con ayuda".'
+  ],
+  noHacer:[
+    'Correr, gritar, acercarse bruscamente o intentar quitar el arma.',
+    'Dar indicaciones técnicas sobre cómo sostener o manipular el arma (eso corresponde solo a fuerzas de seguridad).',
+    'Revisar mochilas o pertenencias por cuenta propia.',
+    'Confrontar, discutir, hacer señalamientos ("¿qué estás haciendo?") o dar órdenes directas ("bajá el arma ya").',
+    'Actuar en soledad.'
+  ],
+  pasos:[
+    'Avisar de inmediato a la Policía Provincial (siempre, en todos los casos).',
+    'Convocar a la familia o referente adulto responsable.',
+    'Priorizar el cuidado del estudiante, sin lógica punitiva.',
+    'Si es sospecha: acompañar a un espacio privado con al menos dos adultos y esperar la verificación de las fuerzas de seguridad.',
+    'Si es presencia confirmada: mantener la calma, no confrontar, retirar discretamente a otros estudiantes y avisar al organismo local de protección de derechos.',
+    'Una vez asegurada la situación: elaborar informe circunstanciado y activar el acompañamiento intersectorial.'
+  ]
+},
+{
+  id:'armablanca', group:'riesgo', color:'red', cat:'Riesgo grave', lvl:'Urgente',
+  title:'Arma blanca u objeto peligroso',
+  desc:'Cutter, compás, herramienta de taller o elemento de fabricación casera (faca). El protocolo cambia según sea sospecha o presencia/uso confirmado — se trata siempre como falta gravísima.',
+  keywords:'arma blanca cuchillo cutter faca herramienta taller pañol amenaza objeto sospecha',
+  hacer:[
+    'SOSPECHA: avisar de inmediato a la Policía Provincial — es obligatorio en todos los casos, también si aún no está confirmado.',
+    'SOSPECHA: convocar en paralelo a la familia o referente adulto del estudiante señalado.',
+    'SOSPECHA: citarlo a un espacio privado siempre acompañado por al menos dos adultos que puedan contener sin emitir juicios de valor.',
+    'PRESENCIA/USO: separar y contener por separado a quien portó/usó el elemento y a quien fue agredido o amenazado, con más de un adulto en cada caso.',
+    'PRESENCIA/USO: avisar a ambas familias por separado y articular con Equipo de Orientación y Convivencia Escolar.',
+    'En ambos casos: registrar en acta y elevar al equipo de gestión y supervisión pedagógica.'
+  ],
+  noHacer:[
+    'Revisar mochilas, cajas de herramientas o pertenencias por cuenta propia — esa verificación corresponde solo a las fuerzas de seguridad.',
+    'Actuar en soledad, sin avisar a la policía, a la familia y al equipo directivo.',
+    'Tratarlo como una "travesura" o broma entre compañeros.',
+    'Dar indicaciones técnicas sobre el elemento ni confrontar con señalamientos u órdenes directas.',
+    'Reunir a ambas familias juntas en la misma reunión, ni exponer a las partes ante el resto del curso.'
+  ],
+  pasos:[
+    'Si es SOSPECHA: avisar a la Policía Provincial y a la familia en simultáneo; acompañar al estudiante a un espacio privado con al menos dos adultos; no revisar pertenencias por cuenta propia; esperar la verificación de las fuerzas de seguridad.',
+    'Si la sospecha se confirma o pasa a ser amenaza/uso directo: el protocolo cambia a contención inmediata — mantener la calma, no confrontar, poner la atención en el vínculo (no en el objeto) y retirar discretamente al resto del grupo.',
+    'Separar y contener por separado a quien portó el elemento y a quien fue agredido/amenazado.',
+    'Avisar a ambas familias por separado y confeccionar acta.',
+    'Si hubo amenaza, la situación constituye delito: derivar al sistema de protección de derechos (oficina de infancia, defensorías, juzgado penal juvenil).',
+    'Una vez asegurada la situación: elaborar informe circunstanciado y planificar una instancia grupal sobre convivencia y resolución pacífica de conflictos.'
+  ]
+},
+{
+  id:'riesgo-vital', group:'riesgo', color:'red', cat:'Emergencia', lvl:'Riesgo de vida',
+  title:'Riesgo de vida inminente',
+  desc:'Situaciones donde la integridad física de un estudiante corre peligro inmediato: arma en uso, intento de suicidio en curso, intoxicación grave.',
+  keywords:'emergencia riesgo de vida urgencia grave inminente',
+  hacer:[
+    'Llamar de inmediato a emergencias / guardia hospitalaria y, si hay riesgo de terceros, a la Policía Provincial.',
+    'No dejar sola/o a la persona en ningún momento.',
+    'Convocar con urgencia a un familiar o referente afectivo — o, si no puede ser contactado, acompañar con el profesional que la persona reconozca como de confianza.',
+    'Retirar objetos peligrosos del entorno inmediato sin exponer al estudiante.',
+    'Priorizar siempre la atención médica y los primeros auxilios por sobre cualquier otra comunicación.'
+  ],
+  noHacer:[
+    'Dejar sola a la persona "un momento" mientras se busca ayuda.',
+    'Minimizar ni dramatizar la situación.',
+    'Prometer cosas que no se pueden cumplir.',
+    'Demorar el llamado a emergencias por resolverlo "puertas adentro".'
+  ],
+  pasos:[
+    'Actuar ya: llamar a la guardia hospitalaria / emergencias (y a la Policía si hay riesgo para terceros o arma presente).',
+    'Permanecer con el/la estudiante en todo momento, sin dejarlo/a solo/a.',
+    'Convocar a la familia o referente afectivo de forma simultánea.',
+    'Informar al equipo directivo de inmediato.',
+    'Registrar la intervención por escrito una vez asegurada la situación.',
+    'Comunicar al organismo local de protección de derechos si no se puede contactar a la familia o si hay indicadores de vulneración de derechos.'
+  ]
+},
+{
+  id:'vulneracion', group:'derechos', color:'amber', cat:'Vulneración de derechos', lvl:'Variable',
+  title:'Relato espontáneo de maltrato, abuso o negligencia',
+  desc:'El rol docente no es investigar ni confirmar los hechos, sino escuchar, contener e informar. La sospecha fundada alcanza para dar intervención.',
+  keywords:'maltrato abuso negligencia relato espontaneo vulneracion derechos denuncia',
+  hacer:[
+    'Brindar un espacio privado, seguro y sin apuro para escuchar.',
+    'Escuchar con serenidad, respetar los silencios, no interrumpir ni presionar con preguntas.',
+    'Transmitir con claridad que no es culpable de lo ocurrido.',
+    'Registrar en acta volante (nunca en el libro de actas institucional ni en el legajo).',
+    'Informar de inmediato a la autoridad escolar y elevar el acta dentro de las 24 hs, en sobre cerrado.'
+  ],
+  noHacer:[
+    'Verificar lesiones o pedir detalles del hecho — eso corresponde a profesionales especializados.',
+    'Confrontar a la persona presuntamente agresora.',
+    'Convocar a la familia si la persona agresora convive con el estudiante (puede agravar el riesgo).',
+    'Exigir pruebas antes de comunicar la sospecha.',
+    'Guardar copia del acta en el legajo del estudiante.'
+  ],
+  pasos:[
+    'Escuchar el relato espontáneo en un espacio privado, sin interrogar.',
+    'Registrar en acta volante: lugar, fecha, hora, relato objetivo, adultos presentes.',
+    'Elevar de inmediato al equipo directivo.',
+    'El equipo directivo comunica al organismo local de protección de derechos de NNyA (o autoridad judicial si hay delito) dentro de las 24 hs.',
+    'Si es delito grave (abuso sexual, grooming, trata): comunicación urgente a la autoridad judicial competente.',
+    'Si no constituye delito pero sí vulneración (trato inadecuado, negligencia leve): se informa igualmente a la oficina local de protección.'
+  ]
+},
+{
+  id:'saludmental', group:'salud', color:'teal', cat:'Salud mental', lvl:'Variable',
+  title:'Crisis emocional en el aula',
+  desc:'Primeros auxilios psicológicos: contener, acompañar y derivar. Puede realizarlos cualquier adulto de la institución.',
+  keywords:'crisis emocional angustia ansiedad panico llanto desborde',
+  hacer:[
+    'Buscar un lugar tranquilo e individualizado, minimizando distracciones.',
+    'Preguntar directamente cómo se siente, para estimar el riesgo.',
+    'Escuchar con atención, sin apurar ni mirar el reloj.',
+    'Brindar calma y seguridad; ofrecer agua si hace falta.',
+    'Ser honesto sobre lo que se sabe y lo que no ("no lo sé, pero voy a averiguarlo").',
+    'Construir juntos un plan de acción con la red de apoyo de la persona.'
+  ],
+  noHacer:[
+    'Presionar para que cuente lo que le pasa.',
+    'Juzgar sentimientos ("no deberías sentirte así").',
+    'Tocar a la persona sin estar seguro de que sea apropiado.',
+    'Hablar de los propios problemas o hacer promesas que no se puedan cumplir.',
+    'Usar lenguaje técnico o revelar información de otras personas.'
+  ],
+  pasos:[
+    'Contener: llevar a un espacio tranquilo y privado, escuchar sin exponer al resto del curso.',
+    'Evaluar: preguntar de forma clara cómo se siente y si hay riesgo para sí u otros.',
+    'Acompañar: construir con la familia un plan de cuidado; garantizar continuidad escolar con adecuaciones.',
+    'Derivar: ante riesgo de vida cierto e inminente, llamar a la guardia hospitalaria y a la familia (salvo que la crisis derive de abuso o maltrato intrafamiliar).',
+    'Comunicar al Servicio Local de Protección de Derechos si no se puede ubicar a la familia o hay indicadores de vulneración.'
+  ]
+},
+{
+  id:'autolesion', group:'salud', color:'violet', cat:'Autolesiones / riesgo suicida', lvl:'Grave',
+  title:'Autolesiones o ideación suicida',
+  desc:'Señales físicas: cortes, quemaduras injustificadas, ropa fuera de contexto. Señales conductuales: aislamiento, desesperanza, hablar de no querer existir. Un intento previo es la señal más importante.',
+  keywords:'autolesion suicidio cortes ideacion suicida posvencion',
+  hacer:[
+    'Priorizar siempre la protección del estudiante y actuar con rapidez, sensibilidad y confidencialidad.',
+    'Convocar a la familia o referentes afectivos para conocer su percepción y orientarlos a un servicio de salud.',
+    'Ante riesgo cierto e inminente de vida: aviso inmediato a la guardia hospitalaria.',
+    'Si el estudiante no quiere que se contacte a la familia, o esta no responde: comunicar al organismo local de protección de derechos.',
+    'Sostener seguimiento coordinado con salud mental y adecuaciones pedagógicas.'
+  ],
+  noHacer:[
+    'Minimizar expresiones sobre el deseo de no existir, "total son cosas de la edad".',
+    'Prometer guardar el secreto.',
+    'Exponer la situación frente al grupo.',
+    'Actuar en soledad sin informar a dirección.'
+  ],
+  pasos:[
+    'Escuchar y contener sin minimizar ni dramatizar.',
+    'Convocar a la familia o referente afectivo.',
+    'Ante riesgo de vida inminente: guardia hospitalaria + acompañamiento de un adulto de confianza si la familia no puede ser contactada.',
+    'Registrar institucionalmente cada intervención.',
+    'Coordinar el reingreso escolar progresivo con adecuaciones pedagógicas.',
+    'Si ocurre un fallecimiento en la comunidad educativa: activar posvención — comunicar con cuidado, habilitar espacios de palabra, evitar mensajes idealizantes y detectar a quienes requieran mayor acompañamiento.'
+  ]
+},
+{
+  id:'consumo', group:'salud', color:'blue', cat:'Consumos problemáticos', lvl:'Variable',
+  title:'Consumo de sustancias',
+  desc:'La intervención escolar es educativa y preventiva, nunca diagnóstica ni policial.',
+  keywords:'drogas alcohol consumo sustancias intoxicacion venta',
+  hacer:[
+    'Hablar desde una perspectiva no moralizante, sin juicios de valor.',
+    'Ante posible intoxicación: llamar de inmediato a la guardia del hospital para traslado y desintoxicación.',
+    'Informar a la familia; si el estudiante pide que no se le avise por un motivo grave, informar a la oficina local de protección.',
+    'Registrar en acta volante por ser información sensible.',
+    'Si hay venta dentro del establecimiento: dar intervención al organismo local de protección (Ley 23.737). Si es en las inmediaciones: denuncia (puede ser anónima) ante la Fiscalía Federal.'
+  ],
+  noHacer:[
+    'Convocar a fuerzas de seguridad ante una situación de consumo (no de venta).',
+    'Retar, moralizar o sancionar como primera respuesta.',
+    'Realizar diagnósticos o determinar el tipo de consumo — eso corresponde al sistema de salud.',
+    'Difundir información en grupos de mensajería o redes.',
+    'Si es mayor de edad: informar al organismo de niñez (no corresponde).'
+  ],
+  pasos:[
+    'Detección: generar un espacio de diálogo y confianza, sin acusar ni interrogar.',
+    'Convocar a la familia o referente adulto y orientarla a servicios de salud.',
+    'Ante signos de intoxicación: llamar de inmediato a emergencias, permanecer con el estudiante en lugar seguro y ventilado.',
+    'Comunicarse con el organismo local de protección si la familia no responde o el estudiante pide no ser contactado.',
+    'Registrar la intervención y evitar sanciones disciplinarias inmediatas o exposición pública.'
+  ]
+},
+];
+
+const casos = [
+{
+  id:'caso-2', numero:2, color:'red', cat:'Protocolo ante armas', lvl:'Sospecha → amenaza',
+  title:'Hallazgo en el pañol de herramientas',
+  contexto:'Durante la limpieza y orden del pañol de herramientas del taller de construcciones, un estudiante de 5° año le comenta de manera sumamente reservada al Maestro de Enseñanza Práctica (MEP) que vio a otro compañero guardar lo que parece ser un arma blanca de fabricación casera (faca) dentro de su caja de herramientas personal.',
+  preguntas:[
+    {
+      q:'Al tratarse de una sospecha, ¿cuáles son los pasos secuenciales que deben seguir los adultos a cargo del taller?',
+      r:[
+        'Avisar de inmediato a la Policía Provincial — es obligatorio siempre, también tratándose solo de sospecha.',
+        'Convocar en paralelo a la familia o referente adulto del estudiante señalado.',
+        'Citarlo a un espacio privado, siempre acompañado por al menos dos adultos que puedan contener sin emitir juicios de valor.',
+        'No revisar la caja de herramientas por cuenta propia: se solicita la intervención de las fuerzas de seguridad para la verificación.',
+        'Confeccionar acta y elevar lo actuado al Equipo de Gestión y Supervisión Pedagógica.'
+      ]
+    },
+    {
+      q:'Mencione al menos dos "Reglas de Oro" de lo que NUNCA debe hacer el personal docente o técnico en esta situación.',
+      r:[
+        'Nunca revisar mochilas, cajas de herramientas o pertenencias por cuenta propia: esa tarea es exclusiva de las fuerzas de seguridad.',
+        'Nunca actuar en soledad, sin avisar a la policía, a la familia y al equipo directivo.',
+        'Nunca exponer al estudiante frente al resto del curso ni adelantar sanciones antes de que la situación esté verificada.',
+        '(Complementaria) Nunca dar indicaciones técnicas sobre el elemento ni emitir juicios de valor durante la escucha.'
+      ]
+    },
+    {
+      q:'En caso de que la sospecha se transforme en una amenaza/presencia directa (el alumno exhibe el elemento de manera peligrosa), ¿cómo cambia el protocolo de acción inmediata?',
+      r:[
+        'El protocolo pasa de "verificación discreta" a contención inmediata de crisis.',
+        'Mantener la calma: no correr, no gritar, no acercarse bruscamente ni intentar quitar el elemento.',
+        'Poner la atención en el vínculo con el estudiante, no en el objeto.',
+        'Retirar discretamente al resto del grupo del espacio, sin generar más tensión.',
+        'Usar frases de contención ("estoy acá para acompañarte", "no estás solo/a") y evitar señalamientos, juicios u órdenes directas.',
+        'Se sigue avisando a policía y familia, pero la prioridad absoluta pasa a ser la seguridad física de todos; el acta y el informe circunstanciado se hacen recién después de asegurada la situación.'
+      ]
+    }
+  ]
+}
+];
+
+const contactosNacionales = [
+  {name:'Línea 102', desc:'Vulneración de derechos de NNyA. Gratuita, confidencial, 24hs.', num:'102'},
+  {name:'Chatbot TINA', desc:'Vía WhatsApp, para NNyA — abuso, violencia familiar, acoso.', num:'11-3910-1010'},
+  {name:'Línea 137', desc:'Violencia familiar y/o sexual, con equipos móviles.', num:'137'},
+  {name:'Línea 141', desc:'SEDRONAR — orientación sobre consumos problemáticos.', num:'141'},
+  {name:'Línea 144', desc:'Violencia de género. No es línea de emergencia (911 ante riesgo inmediato).', num:'144'},
+  {name:'Línea 145', desc:'Trata y explotación de personas.', num:'145'},
+  {name:'Equipo Niñ@s', desc:'Abuso sexual infantil, grooming, contenido inapropiado online.', num:'0800-222-1717'},
+  {name:'Emergencia / riesgo de vida', desc:'Policía / servicio de emergencias.', num:'911'},
+];
+
+const contactosLocales = [
+  {name:'SENAF El Calafate', desc:'Subsecretaría de la Mujer, Niñez y Familia.', num:'2902 498513'},
+  {name:'Juzgado de Instrucción y Penal Juvenil — El Calafate', desc:'', num:'2902 627621 / 2966 540726'},
+  {name:'Fiscalía — El Calafate', desc:'', num:'2966 648012'},
+  {name:'Ministerio de Seguridad — Subsec. Seguridad Ciudadana', desc:'', num:'2966 767342'},
+  {name:'Subsecretaría de Salud Mental Integral', desc:'Río Gallegos.', num:'2966 457987'},
+  {name:'Consejo Provincial de Educación', desc:'Conmutador.', num:'02966 426170'},
+];
+
+// ---------- Render ----------
+function catColorVar(c){ return COLORS[c] || COLORS.teal; }
+
+function cardHTML(p){
+  return `<div class="card" style="--accent:${catColorVar(p.color)}" tabindex="0" role="button"
+      onclick="openDetail('${p.id}')" onkeydown="if(event.key==='Enter')openDetail('${p.id}')">
+    <div class="barcode"></div>
+    <div class="row1">
+      <span class="catlabel">${p.cat}</span>
+      <span class="lvl">${p.lvl}</span>
+    </div>
+    <h3>${p.title}</h3>
+    <p>${p.desc}</p>
+    <span class="go">Ver protocolo →</span>
+  </div>`;
+}
+
+function renderGrids(filter){
+  const f = (filter||'').toLowerCase().trim();
+  const match = p => !f || (p.title+' '+p.desc+' '+p.keywords+' '+p.cat).toLowerCase().includes(f);
+
+  const groups = {
+    'grid-convivencia': protocols.filter(p=>p.group==='convivencia' && match(p)),
+    'grid-derechos': protocols.filter(p=>p.group==='derechos' && match(p)),
+    'grid-salud': protocols.filter(p=>p.group==='salud' && match(p)),
+    'grid-riesgo': protocols.filter(p=>p.group==='riesgo' && match(p)),
+  };
+  Object.entries(groups).forEach(([id,list])=>{
+    const el = document.getElementById(id);
+    el.innerHTML = list.map(cardHTML).join('');
+    const sectionTitle = el.previousElementSibling;
+    sectionTitle.style.display = list.length ? '' : 'none';
+    el.style.display = list.length ? '' : 'none';
+  });
+}
+renderGrids('');
+
+document.getElementById('search').addEventListener('input', e=>renderGrids(e.target.value));
+
+function openDetail(id){
+  const p = protocols.find(x=>x.id===id);
+  if(!p) return;
+  const accent = catColorVar(p.color);
+  document.getElementById('detailContent').innerHTML = `
+    <div class="detail-head" style="--accent:${accent}">
+      <div class="barcode"></div>
+      <button class="closebtn" onclick="closeDetail()">✕</button>
+      <div class="catlabel">${p.cat} · ${p.lvl}</div>
+      <h2>${p.title}</h2>
+      <p class="desc">${p.desc}</p>
+    </div>
+    <div class="detail-body">
+      <div class="block">
+        <h4>Qué hacer / qué no hacer</h4>
+        <div class="dodont">
+          <div class="dobox"><div class="lbl">HACER</div><ul>${p.hacer.map(x=>`<li>${x}</li>`).join('')}</ul></div>
+          <div class="dontbox"><div class="lbl">EVITAR</div><ul>${p.noHacer.map(x=>`<li>${x}</li>`).join('')}</ul></div>
+        </div>
+      </div>
+      <div class="block">
+        <h4>Hoja de ruta</h4>
+        <ul class="steps" style="--accent:${accent}">${p.pasos.map(x=>`<li>${x}</li>`).join('')}</ul>
+      </div>
+      <div class="block">
+        <h4>Recordá</h4>
+        <div class="warnnote">El personal educativo no investiga ni confirma los hechos: su función es escuchar, contener, registrar e informar a los organismos competentes. La sospecha fundada alcanza para dar intervención — no hace falta prueba concreta.</div>
+      </div>
+    </div>`;
+  document.getElementById('detailContent').style.setProperty('--accent', accent);
+  document.getElementById('overlay').classList.add('active');
+  document.body.style.overflow='hidden';
+}
+function closeDetail(){
+  document.getElementById('overlay').classList.remove('active');
+  document.body.style.overflow='';
+}
+document.getElementById('overlay').addEventListener('click', e=>{
+  if(e.target.id==='overlay') closeDetail();
+});
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeDetail(); });
+
+// ---------- Contacts ----------
+function contactCard(c){
+  return `<div class="contactcard">
+    <div class="name">${c.name}</div>
+    ${c.desc? `<div class="desc">${c.desc}</div>`:''}
+    <div class="num">${c.num}</div>
+  </div>`;
+}
+document.getElementById('contactos-nacionales').innerHTML = contactosNacionales.map(contactCard).join('');
+document.getElementById('contactos-locales').innerHTML = contactosLocales.map(contactCard).join('');
+
+// ---------- Casos prácticos ----------
+function casoCardHTML(c){
+  return `<div class="card" style="--accent:${catColorVar(c.color)}" tabindex="0" role="button"
+      onclick="openCaso('${c.id}')" onkeydown="if(event.key==='Enter')openCaso('${c.id}')">
+    <div class="barcode"></div>
+    <div class="row1">
+      <span class="catlabel">Situación ${c.numero} · ${c.cat}</span>
+      <span class="lvl">${c.lvl}</span>
+    </div>
+    <h3>${c.title}</h3>
+    <p>${c.contexto.slice(0,120)}…</p>
+    <span class="go">Ver caso y respuesta modelo →</span>
+  </div>`;
+}
+document.getElementById('grid-casos').innerHTML = casos.map(casoCardHTML).join('');
+
+function openCaso(id){
+  const c = casos.find(x=>x.id===id);
+  if(!c) return;
+  const accent = catColorVar(c.color);
+  const preguntasHTML = c.preguntas.map((p,i)=>`
+    <div class="block">
+      <h4>Pregunta ${i+1}</h4>
+      <p style="font-size:13.8px; line-height:1.6; margin-bottom:10px;">${p.q}</p>
+      <div class="dobox"><div class="lbl">RESPUESTA MODELO</div><ul>${p.r.map(x=>`<li>${x}</li>`).join('')}</ul></div>
+    </div>`).join('');
+  document.getElementById('detailContent').innerHTML = `
+    <div class="detail-head" style="--accent:${accent}">
+      <div class="barcode"></div>
+      <button class="closebtn" onclick="closeDetail()">✕</button>
+      <div class="catlabel">Situación ${c.numero} · ${c.cat}</div>
+      <h2>${c.title}</h2>
+      <p class="desc"><strong style="color:var(--text)">Contexto:</strong> ${c.contexto}</p>
+    </div>
+    <div class="detail-body">
+      ${preguntasHTML}
+    </div>`;
+  document.getElementById('overlay').classList.add('active');
+  document.body.style.overflow='hidden';
+}
+
+// ---------- Tabs ----------
+function switchTab(tab){
+  ['protocolos','casos','contactos','acta'].forEach(t=>{
+    document.getElementById('tab-'+t).style.display = (t===tab)?'':'none';
+  });
+  document.querySelectorAll('.tabbtn').forEach(b=>{
+    b.classList.toggle('active', b.dataset.tab===tab);
+  });
+  document.querySelector('.searchwrap').style.display = (tab==='protocolos') ? '' : 'none';
+}
+</script>
+</body>
+</html>
